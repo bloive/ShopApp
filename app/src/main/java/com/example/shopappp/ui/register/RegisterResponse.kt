@@ -1,7 +1,7 @@
 package com.example.shopappp.ui.register
 import com.google.gson.annotations.SerializedName
 
-data class RegisterModel(
+data class RegisterResponse(
     @SerializedName("OK")
     val oK: Boolean,
     @SerializedName("registered")

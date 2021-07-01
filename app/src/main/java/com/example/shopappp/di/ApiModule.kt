@@ -1,12 +1,17 @@
 package com.example.shopappp.di
 
-import com.example.shopappp.network.ApiService
+import com.example.shopappp.BuildConfig
+import com.example.shopappp.network.AuthService
 import com.example.shopappp.repository.AuthRepository
+import com.example.shopappp.repository.AuthRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -18,11 +23,33 @@ class ApiModule {
         private const val BASE_URL = "https://"
     }
 
+    private fun httpClient(): OkHttpClient {
+        val builder = OkHttpClient.Builder().addInterceptor(object : Interceptor {
+            override fun intercept(chain: Interceptor.Chain): Response {
+                chain.request()
+                val request = chain.request().newBuilder()
+                return chain.proceed(request.build())
+            }
+        })
+        if (BuildConfig.BUILD_TYPE == "debug") {
+            builder.addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+            )
+        }
+        return builder.build()
+    }
+
     @Provides
     @Singleton
-    fun loginService() =
-        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
-            .build().create(ApiService::class.java)
+    fun loginService(): AuthService =
+        Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(httpClient())
+            .build()
+            .create(AuthService::class.java)
 
-    //TODO
+    @Provides
+    @Singleton
+    fun provideLoginRepo(authService: AuthService): AuthRepository = AuthRepositoryImpl(authService)
 }

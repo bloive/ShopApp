@@ -30,6 +30,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
@@ -39,5 +40,11 @@ class LoginFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun login() {
+        val email = binding!!.etEmail.text.toStrin()
+        val password = binding!!.etPassword.text.toString()
+        if ()
     }
 }

@@ -1,7 +1,7 @@
 package com.example.shopappp.ui.login
 import com.google.gson.annotations.SerializedName
 
-data class LoginModel(
+data class LoginResponse(
     @SerializedName("error")
     val error: String,
     @SerializedName("OK")
