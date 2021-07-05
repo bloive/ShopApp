@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="background">#FEFEFE</color>
+    <color name="text">#515151</color>
+    <color name="salmon_pink">#FE7778</color>
+    <color name="warm_pink">#FF5B7F</color>
+    <color name="salmon">#FC9272</color>
+    <color name="greytext">#B7B7B7</color>
+    <color name="apricot">#F7AB6A</color>
+    <color name="apricot_two">#FC9970</color>
+    <color name="coral_pink">#FF5E78</color>
+    <color name="selected_field">#FD7E77</color>
 </resources>

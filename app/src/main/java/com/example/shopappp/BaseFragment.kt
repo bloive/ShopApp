@@ -1,5 +1,6 @@
 package com.example.shopappp
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +16,7 @@ abstract class BaseFragment<VBinding : ViewBinding>(private val inflate: Inflate
     Fragment() {
 
     private var binding: VBinding? = null
-    protected abstract fun getViewBinding(): VBinding
+//    protected abstract fun getViewBinding(): VBinding
     private var mainActivity: MainActivity? = null
 
     override fun onAttach(context: Context) {
@@ -50,4 +51,10 @@ abstract class BaseFragment<VBinding : ViewBinding>(private val inflate: Inflate
         inflater: LayoutInflater,
         container: ViewGroup?
     )
+
+    fun showErrorDialog(title:String, description: String) {
+        val dialog = Dialog(requireContext())
+        TODO("Not yet implemented")
+        dialog.show()
+    }
 }
