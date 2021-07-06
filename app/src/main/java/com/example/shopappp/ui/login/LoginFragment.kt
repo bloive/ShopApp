@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.shopappp.BaseFragment
 import com.example.shopappp.R
 import com.example.shopappp.databinding.LoginFragmentBinding
@@ -22,8 +23,6 @@ import kotlin.math.sign
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding::inflate) {
 
-    private var _binding: LoginFragmentBinding? = null
-    private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
@@ -34,6 +33,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding::i
     }
 
     override fun start(inflater: LayoutInflater, container: ViewGroup?) {
+        binding!!.tfEmail.isEndIconVisible = false
         binding!!.tvSignUp.setMultiColors(
             listOf(
                 "New User?", "Sign up", "here"
@@ -44,12 +44,12 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding::i
     }
 
     private fun setListeners() {
-        with(binding) {
+        with(binding!!) {
             btnSignIn.setOnClickListener {
                 signIn()
             }
             tvSignUp.setOnClickListener {
-
+                toSignUp()
             }
             tvForgotPassword.setOnClickListener {
 
@@ -61,12 +61,12 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding::i
     }
 
     private fun validateEmail(email: String) {
-        binding.tfEmail.isEndIconVisible = email.isEmail()
+        binding!!.tfEmail.isEndIconVisible = email.isEmail()
     }
 
     private fun signIn() {
-        val email = binding.textInputEmail.text.toString()
-        val password = binding.textInputPassword.text.toString()
+        val email = binding!!.textInputEmail.text.toString()
+        val password = binding!!.textInputPassword.text.toString()
         if (email.isNotBlank() && password.isNotBlank()) {
             if (email.isEmail()) {
                 viewModel.login(email, password)
@@ -86,5 +86,9 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding::i
                 Resource.Status.LOADING -> {}
             }
         })
+    }
+
+    private fun toSignUp() {
+        findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
     }
 }

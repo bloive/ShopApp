@@ -12,10 +12,10 @@ import com.example.shopappp.ui.MainActivity
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
-abstract class BaseFragment<VBinding : ViewBinding>(private val inflate: Inflate<VBinding>) :
+abstract class BaseFragment<VBinding : ViewBinding>(val inflate: Inflate<VBinding>) :
     Fragment() {
 
-    private var binding: VBinding? = null
+    var binding: VBinding? = null
 //    protected abstract fun getViewBinding(): VBinding
     private var mainActivity: MainActivity? = null
 
