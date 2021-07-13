@@ -1,13 +1,11 @@
 package com.example.shopappp.ui.login
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shopappp.network.Resource
-import com.example.shopappp.repository.AuthRepository
-import com.example.shopappp.repository.AuthRepositoryImpl
+import com.example.shopappp.repository.auth.AuthRepository
 import com.example.shopappp.user_data.SharedPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +14,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val authRepo: AuthRepository, private val userPreference: SharedPreference) : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val authRepo: AuthRepository,
+    private val userPreference: SharedPreference
+) : ViewModel() {
 
     private val _responseLiveData = MutableLiveData<Resource<LoginResponse>>()
     val responseLiveData: LiveData<Resource<LoginResponse>>
@@ -31,7 +32,7 @@ class LoginViewModel @Inject constructor(private val authRepo: AuthRepository, p
         }
     }
 
-    fun saveUserSession(isChecked:Boolean) {
+    fun saveUserSession(isChecked: Boolean) {
         userPreference.saveUserSession(isChecked)
     }
 }

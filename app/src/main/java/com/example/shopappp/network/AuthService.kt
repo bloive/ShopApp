@@ -1,7 +1,7 @@
 package com.example.shopappp.network
 
+import com.example.shopappp.models.RegisterResponse
 import com.example.shopappp.ui.login.LoginResponse
-import com.example.shopappp.ui.register.RegisterResponse
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

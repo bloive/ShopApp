@@ -1,9 +1,9 @@
-package com.example.shopappp.repository
+package com.example.shopappp.repository.auth
 
+import com.example.shopappp.models.RegisterResponse
 import com.example.shopappp.network.AuthService
 import com.example.shopappp.network.Resource
 import com.example.shopappp.ui.login.LoginResponse
-import com.example.shopappp.ui.register.RegisterResponse
 import java.lang.Exception
 import javax.inject.Inject
 

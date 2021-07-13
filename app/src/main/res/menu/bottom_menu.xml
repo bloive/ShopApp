@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/wallFragment"
+        android:icon="@drawable/ic_logo"
+        android:title="@string/wall" />
+
+    <item android:id="@+id/favoriteFragment"
+        android:icon="@drawable/ic_logo"
+        android:title="@string/favorites" />
+
+    <item android:id="@+id/walletFragment"
+        android:icon="@drawable/ic_logo"
+        android:title="@string/wallet" />
+
+    <item android:id="@+id/ordersFragment"
+        android:icon="@drawable/ic_logo"
+        android:title="@string/order" />
+
+</menu>

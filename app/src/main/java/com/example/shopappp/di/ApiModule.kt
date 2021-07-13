@@ -2,8 +2,8 @@ package com.example.shopappp.di
 
 import com.example.shopappp.BuildConfig
 import com.example.shopappp.network.AuthService
-import com.example.shopappp.repository.AuthRepository
-import com.example.shopappp.repository.AuthRepositoryImpl
+import com.example.shopappp.repository.auth.AuthRepository
+import com.example.shopappp.repository.auth.AuthRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class ApiModule {
     companion object {
-        private const val BASE_URL = "https://"
+        private const val BASE_URL = "https://ktorhighsteaks.herokuapp.com/"
     }
 
     private fun httpClient(): OkHttpClient {

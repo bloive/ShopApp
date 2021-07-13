@@ -1,8 +1,7 @@
 package com.example.shopappp.ui.login
 
-import androidx.lifecycle.ViewModelProvider
+import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shopappp.BaseFragment
 import com.example.shopappp.R
+import com.example.shopappp.databinding.ErrorDialogBinding
 import com.example.shopappp.databinding.LoginFragmentBinding
-import com.example.shopappp.extensions.isEmail
-import com.example.shopappp.extensions.setMultiColors
+import com.example.shopappp.extensions.*
 import com.example.shopappp.network.Resource
-import com.example.shopappp.network.Resource.Companion.error
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Response.error
-import kotlin.math.sign
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding::inflate) {
@@ -71,21 +67,40 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding::i
             if (email.isEmail()) {
                 viewModel.login(email, password)
             } else {
-//                showErrorDialog()
+                showErrorDialog("Email not valid")
             }
         } else {
-//            showErrorDialog()
+            showErrorDialog("Email or password not valid")
         }
     }
 
     private fun observes() {
         viewModel.responseLiveData.observe(viewLifecycleOwner, {
-            when(it.status) {
-                Resource.Status.SUCCESS -> {}
-                Resource.Status.ERROR -> {}
-                Resource.Status.LOADING -> {}
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    binding!!.progress.hide()
+                }
+                Resource.Status.ERROR -> {
+                    binding!!.progress.hide()
+                    it.message?.let { it1 -> showErrorDialog(it1) }
+                }
+                Resource.Status.LOADING -> {
+                    binding!!.progress.showIf(it.loading)
+                }
             }
         })
+    }
+
+    private fun showErrorDialog(message: String) {
+        val dialog = Dialog(requireContext())
+        val dialogBinding = ErrorDialogBinding.inflate(layoutInflater)
+        dialog.start(dialogBinding.root)
+        dialogBinding.tvDescription.text = message
+        dialogBinding.btnClose.setOnClickListener {
+            dialog.cancel()
+        }
+        dialog.show()
     }
 
     private fun toSignUp() {

@@ -1,32 +1,61 @@
 package com.example.shopappp.ui.register
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.app.Dialog
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.shopappp.BaseFragment
 import com.example.shopappp.R
+import com.example.shopappp.databinding.ErrorDialogBinding
+import com.example.shopappp.databinding.LoginFragmentBinding
+import com.example.shopappp.extensions.hide
+import com.example.shopappp.extensions.showIf
+import com.example.shopappp.extensions.start
+import com.example.shopappp.network.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
-class RegisterFragment : Fragment() {
+@AndroidEntryPoint
+class RegisterFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding::inflate) {
 
-    companion object {
-        fun newInstance() = RegisterFragment()
+    private val viewModel: RegisterViewModel by viewModels()
+
+    override fun start(inflater: LayoutInflater, container: ViewGroup?) {
+        init()
+        observes()
     }
 
-    private lateinit var viewModel: RegisterViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.register_fragment, container, false)
+    private fun init() {
+        TODO("frustrated")
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    private fun observes() {
+        viewModel.registerResponseLiveData.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    binding!!.progress.hide()
 
+                    val email = binding!!.textInputEmail.text.toString()
+                    val password = binding!!.textInputPassword.text.toString()
+                    findNavController().navigate(
+                        R.id.action_registerFragment_to_homeFragment,
+                        bundleOf("email" to email, "password" to password)
+                    )
+                }
+                Resource.Status.ERROR -> {
+                    binding!!.progress.hide()
+                    val dialog = Dialog(requireContext())
+                    val dialogBinding = ErrorDialogBinding.inflate(layoutInflater)
+                    dialog.start(dialogBinding.root)
+                    dialogBinding.tvDescription.text = it.message
+                    dialogBinding.btnClose.setOnClickListener {
+                        dialog.cancel()
+                    }
+                    dialog.show()
+                }
+                Resource.Status.LOADING -> binding!!.progress.showIf(it.loading)
+            }
+        })
+    }
 }
