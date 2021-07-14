@@ -2,7 +2,7 @@ package com.example.shopappp.repository.auth
 
 import com.example.shopappp.models.RegisterResponse
 import com.example.shopappp.network.Resource
-import com.example.shopappp.ui.login.LoginResponse
+import com.example.shopappp.ui.auth.login.LoginResponse
 
 interface AuthRepository {
     suspend fun login(email: String, password: String) : Resource<LoginResponse>

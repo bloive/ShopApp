@@ -20,7 +20,7 @@ data class Resource<T>(
             return Resource(Status.LOADING, null, null, loading)
         }
 
-        fun <T> error(message: String): Resource<T> {
+        fun <T> error(message: String, s: String): Resource<T> {
             return Resource(Status.ERROR, null, message, false)
         }
     }

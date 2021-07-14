@@ -1,4 +1,4 @@
-package com.example.shopappp.ui.login
+package com.example.shopappp.ui.auth.login
 
 import com.google.gson.annotations.SerializedName
 

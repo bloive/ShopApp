@@ -1,4 +1,4 @@
-package com.example.shopappp.ui.register
+package com.example.shopappp.ui.auth.register
 
 import android.app.Dialog
 import android.view.LayoutInflater
@@ -10,8 +10,6 @@ import com.example.shopappp.BaseFragment
 import com.example.shopappp.R
 import com.example.shopappp.databinding.ErrorDialogBinding
 import com.example.shopappp.databinding.LoginFragmentBinding
-import com.example.shopappp.extensions.hide
-import com.example.shopappp.extensions.showIf
 import com.example.shopappp.extensions.start
 import com.example.shopappp.network.Resource
 import dagger.hilt.android.AndroidEntryPoint

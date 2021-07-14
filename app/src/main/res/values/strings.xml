@@ -13,4 +13,6 @@
     <string name="feed">My Feed</string>
     <string name="error">Error</string>
     <string name="ok">Ok</string>
+    <string name="learn_more">Learn more</string>
+    <string name="add_to_cart">Add to Cart</string>
 </resources>

@@ -3,7 +3,7 @@ package com.example.shopappp.repository.auth
 import com.example.shopappp.models.RegisterResponse
 import com.example.shopappp.network.AuthService
 import com.example.shopappp.network.Resource
-import com.example.shopappp.ui.login.LoginResponse
+import com.example.shopappp.ui.auth.login.LoginResponse
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -14,10 +14,13 @@ class AuthRepositoryImpl @Inject constructor(private val authService: AuthServic
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {
-                Resource.error(response.errorBody()!!.string())
+                Resource.error(
+                    response.errorBody()!!.string(),
+                    errorResult?.error ?: "something wrong"
+                )
             }
         } catch (e: Exception) {
-            Resource.error(e.message.toString())
+            Resource.error(e.message.toString(), errorResult?.error ?: "something wrong")
         }
     }
 

@@ -1,11 +1,10 @@
-package com.example.shopappp.ui.login
+package com.example.shopappp.ui.auth.login
 
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shopappp.BaseFragment

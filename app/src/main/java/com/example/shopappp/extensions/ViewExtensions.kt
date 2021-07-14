@@ -20,3 +20,10 @@ fun View.showIf(isValid: Boolean) {
     else
         View.INVISIBLE
 }
+
+fun View.hideIf(isValid: Boolean) {
+    visibility = if (!isValid)
+        View.VISIBLE
+    else
+        View.INVISIBLE
+}

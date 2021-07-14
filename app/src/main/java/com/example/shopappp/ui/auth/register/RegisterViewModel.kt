@@ -1,4 +1,4 @@
-package com.example.shopappp.ui.register
+package com.example.shopappp.ui.auth.register
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

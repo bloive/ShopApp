@@ -2,8 +2,11 @@ package com.example.shopappp.di
 
 import com.example.shopappp.BuildConfig
 import com.example.shopappp.network.AuthService
+import com.example.shopappp.network.PostService
 import com.example.shopappp.repository.auth.AuthRepository
 import com.example.shopappp.repository.auth.AuthRepositoryImpl
+import com.example.shopappp.repository.post.PostRepository
+import com.example.shopappp.repository.post.PostRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,4 +55,10 @@ class ApiModule {
     @Provides
     @Singleton
     fun provideLoginRepo(authService: AuthService): AuthRepository = AuthRepositoryImpl(authService)
+
+    @Provides
+    @Singleton
+    fun providePostRepo(postService: PostService): PostRepository =
+        PostRepositoryImpl(postService)
+
 }

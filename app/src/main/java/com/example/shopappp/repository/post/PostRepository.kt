@@ -4,5 +4,5 @@ import com.example.shopappp.models.Post
 import com.example.shopappp.network.Resource
 
 interface PostRepository {
-    suspend fun getPosts() : Resource<List<Post>>
+    suspend fun getPost():Resource<List<Post>>
 }
