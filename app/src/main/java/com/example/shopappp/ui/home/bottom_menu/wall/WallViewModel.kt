@@ -16,19 +16,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WallViewModel @Inject constructor(private val postRepo: PostRepositoryImpl) : ViewModel() {
-    private val _liveData = MutableLiveData<Resource<List<Post>>>()
-    val liveData: LiveData<Resource<List<Post>>> = _liveData
+    private val _postsLiveData = MutableLiveData<Resource<List<Post>>>()
+    val postsLiveData: LiveData<Resource<List<Post>>> = _postsLiveData
 
     fun getPost() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                _liveData.postValue(Resource.success(true))
+                _postsLiveData.postValue(Resource.loading(true))
                 getPosts()
             }
         }
     }
 
     private suspend fun getPosts() {
-        _liveData.postValue(postRepo.getPost())
+        _postsLiveData.postValue(postRepo.getPost())
     }
 }

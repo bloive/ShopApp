@@ -36,7 +36,7 @@ class WallFragment : BaseFragment<FragmentWallBinding>(FragmentWallBinding::infl
     }
 
     private fun observes() {
-        viewModel.liveData.observe(viewLifecycleOwner, {
+        viewModel.postsLiveData.observe(viewLifecycleOwner, {
             binding!!.swipeRefresh.isRefreshing = it.loading
             when(it.status) {
                 Resource.Status.SUCCESS -> {

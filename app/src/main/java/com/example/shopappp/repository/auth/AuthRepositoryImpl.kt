@@ -4,6 +4,7 @@ import com.example.shopappp.models.RegisterResponse
 import com.example.shopappp.network.AuthService
 import com.example.shopappp.network.Resource
 import com.example.shopappp.ui.auth.login.LoginResponse
+import com.google.gson.Gson
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -30,6 +31,20 @@ class AuthRepositoryImpl @Inject constructor(private val authService: AuthServic
         fullName: String
     ): Resource<RegisterResponse> {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun completeProfile(userID: String): Resource<CompleteProfile> {
+        return try {
+            val response = authService.completeProfileStatus(userID)
+            if (response.isSuccessful) {
+                Resource.success(response.body()!!)
+            } else {
+                val errorModel = Gson().fromJson(response.errorBody()!!.string(), Error::class.java)
+                Resource.error(errorModel.message)
+            }
+        } catch (e: Exception) {
+            Resource.error(e.message.toString())
+        }
     }
 
 

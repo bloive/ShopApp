@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_completeFragment"
+            app:destination="@id/completeFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -47,4 +50,13 @@
         android:name="com.example.shopappp.ui.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
+    <fragment
+        android:id="@+id/completeFragment"
+        android:name="com.example.shopappp.ui.complete_profile.CompleteFragment"
+        android:label="complete_fragment"
+        tools:layout="@layout/complete_fragment" >
+        <action
+            android:id="@+id/action_completeFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

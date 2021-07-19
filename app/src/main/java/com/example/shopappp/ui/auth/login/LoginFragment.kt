@@ -89,6 +89,23 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding::i
                 }
             }
         })
+
+        viewModel.completeProfileLiveData.observe(viewLifecycleOwner, {
+            binding!!.progress.hideIf(!it.loading)
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    if (it.data!!.profileCompleted)
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    else
+                        findNavController().navigate(R.id.action_loginFragment_to_completeFragment)
+                }
+                Resource.Status.ERROR -> {
+                    it.message?.let { it1 -> showErrorDialog(getString(R.string.error), it1) }
+                }
+                Resource.Status.LOADING -> {
+                }
+            }
+        })
     }
 
     private fun showErrorDialog(message: String) {

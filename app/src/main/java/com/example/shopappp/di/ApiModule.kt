@@ -10,6 +10,7 @@ import com.example.shopappp.repository.post.PostRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -58,7 +59,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun providePostRepo(postService: PostService): PostRepository =
+    fun providePostRepo (postService: PostService): PostRepository =
         PostRepositoryImpl(postService)
 
 }

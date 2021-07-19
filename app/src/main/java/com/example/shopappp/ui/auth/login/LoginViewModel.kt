@@ -23,6 +23,9 @@ class LoginViewModel @Inject constructor(
     val responseLiveData: LiveData<Resource<LoginResponse>>
         get() = _responseLiveData
 
+    private val _completeProfileLiveData = MutableLiveData<Resource<CompleteProfile>>()
+    val completeProfileLiveData: LiveData<Resource<CompleteProfile>> = _completeProfileLiveData
+
     fun login(email: String, password: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -34,5 +37,14 @@ class LoginViewModel @Inject constructor(
 
     fun saveUserSession(isChecked: Boolean) {
         userPreference.saveUserSession(isChecked)
+    }
+
+    fun completeProfile() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val result = authRepo.completeProfile(userPreference.userId())
+                _completeProfileLiveData.postValue(result)
+            }
+        }
     }
 }
